@@ -1,0 +1,57 @@
+<html>
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script>
+			function call() {
+				var url = 'http://192.168.1.68:8888/';
+
+				var xhr = new XMLHttpRequest();
+				xhr.open('POST', url);
+
+				xhr.onreadystatechange = function () {
+					if (xhr.readyState === 4) {
+						console.log(xhr.status);
+						console.log(xhr.responseText);
+					}
+				};
+
+				xhr.send();
+			}
+		</script>
+		<style>
+			.button {
+				background-color: aquamarine; /* Green */
+				border: none;
+				color: white;
+				padding: 15px 32px;
+				text-align: center;
+				text-decoration: none;
+				display: inline-block;
+				font-size: 64px;
+			}
+
+			.container {
+  height: 200px;
+  position: relative;
+  
+}
+
+.vertical-center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+		</style>
+	</head>
+
+	<body>
+		<div class="container">
+			<div class="vertical-center">
+				<button class="button" onclick="call();">~~~~~~</button>
+			</div>
+
+		</div>
+	</body>
+</html>
