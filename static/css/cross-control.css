@@ -1,0 +1,42 @@
+body {
+  background-color:pink;
+}
+
+.cross-control {
+  width: 240px; /* Adjust size as needed */
+  height: 240px;
+  position: relative;
+  background: pink;
+}
+
+.cross-arm {
+  position: absolute;
+  background-color: violet;
+}
+
+.horizontal {
+  top: 104px;
+  left: 0;
+  width: 100%;
+  height: 32px; 
+  background-color: violet;
+}
+
+.vertical {
+  left: 104px;
+  top: 0;
+  width: 32px;
+  height: 100%;
+}
+
+.spin-animation {
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(20deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(-20deg); }
+  100% { transform: rotate(0deg); }
+}

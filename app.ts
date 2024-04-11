@@ -12,6 +12,8 @@ app.use(bodyParser.json({ limit: '50mb' }));
 
 let publisher: RedisClientType;
 
+app.use("/static", express.static(path.resolve(__dirname, "static")));
+
 app.post('/', async (req: Request, res: Response) => {
 	const input = req.body.input || 'a';
 

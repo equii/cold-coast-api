@@ -44,6 +44,7 @@ const REDIS_URL = process.env.REDIS_URL;
 const app = (0, express_1.default)();
 app.use(bodyParser.json({ limit: '50mb' }));
 let publisher;
+app.use("/static", express_1.default.static(path.resolve(__dirname, "static")));
 app.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const input = req.body.input || 'a';
     const channel = 'message_queue';
