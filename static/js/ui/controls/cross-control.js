@@ -14,24 +14,24 @@ let CrossControl = (function () {
         </div>
       `;
 
-			// document.addEventListener('DOMContentLoaded', function () {
-			// 	var cross = document.querySelector('.cross-control');
-			// 	cross.classList.add('spin-animation');
+			const color1 = generateRandomColor();
+			const color2 = generateRandomColor();
 
-			// 	cross.addEventListener('animationiteration', onAnimationIteration);
+			const crossBackground = document.querySelector('.cross-control');
+			crossBackground.style.backgroundColor = color1;
 
-			// 	function onAnimationIteration(event) {
-			// 		if (event.animationName === 'spin') {
-			// 			// Decrement the iteration count
-			// 			cross.dataset.iterations = (parseInt(cross.dataset.iterations) || 0) + 1;
+			const bodyElement = document.body;
+			bodyElement.style.backgroundColor = color1;
 
-			// 			// If the animation has played 2 times, remove the animation class
-			// 			if (parseInt(cross.dataset.iterations) === 1) {
-			// 				cross.classList.remove('spin-animation');
-			// 			}
-			// 		}
-			// 	}
-			// });
+			const crossArms = document.getElementsByClassName('cross-arm');
+			for(const crossArm of crossArms) {
+				crossArm.style.backgroundColor = color2;
+			}
+
+			function generateRandomColor() {
+				const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+				return randomColor;
+			}
 
 			function animate() {
 				var cross = document.querySelector('.cross-control');

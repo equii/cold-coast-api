@@ -13,6 +13,22 @@ let WavesControl = (function () {
 			container.addEventListener('touchend', ()=> { animate(); action(key); });
 			
 			document.addEventListener('DOMContentLoaded', animate);
+
+			const color1 = generateRandomColor();
+			const color2 = generateRandomColor();
+
+		
+			const bodyElement = document.body;
+			bodyElement.style.backgroundColor = color1;
+			const waves = document.querySelector('.waves-container');
+			waves.style.backgroundColor = color1;
+			waves.style.color = color2;
+
+
+			function generateRandomColor() {
+				const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+				return randomColor;
+			}
 			
 			function animate () {
 				let waves = document.querySelector('.waves-container');
