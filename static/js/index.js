@@ -12,6 +12,11 @@ const controls = [
 	{ control: WavesControl, function: sendAgitation, key: 'slide_up' },
 ];
 
+setTimeout(() => {
+    window.location.reload();
+}, 15000);
+
+
 makeRequest("GET", "control", {}, (result) => {
 	console.log(result);
 
