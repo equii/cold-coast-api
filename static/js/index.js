@@ -14,7 +14,7 @@ const controls = [
 
 setTimeout(() => {
     window.location.reload();
-}, 15000);
+}, 30000);
 
 
 makeRequest("GET", "control", {}, (result) => {
