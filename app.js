@@ -44,20 +44,31 @@ const REDIS_URL = process.env.REDIS_URL;
 const app = (0, express_1.default)();
 app.use(bodyParser.json({ limit: '50mb' }));
 let publisher;
+const controlIds = initControlIds();
+let currControl = 0;
 app.use("/static", express_1.default.static(path.resolve(__dirname, "static")));
+app.get("/control", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const controlId = controlIds[currControl % controlIds.length];
+    currControl++;
+    res.json({ id: controlId });
+}));
 app.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const input = req.body.input || 'a';
+    console.log(req.body);
+    const input = req.body.key ? req.body : {
+        key: "agitate",
+        value: 100
+    };
     const channel = 'message_queue';
     const message = input;
     try {
-        publisher.publish(channel, message);
-        console.log(`Sent: ${message}`);
+        publisher.publish(channel, JSON.stringify(message));
+        console.log(`Sent: ${message}`, `\t`);
     }
     catch (e) {
         console.error('PUB ERROR');
         console.error(e, `\t`);
     }
-    res.send('Express + TypeScript Server');
+    res.json({ success: true });
 }));
 app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, '/index.html'));
@@ -74,3 +85,14 @@ function connect() {
     });
 }
 connect();
+function initControlIds(number) {
+    const controlIds = [];
+    const numberOfControls = number || 6;
+    while (controlIds.length < numberOfControls) {
+        const controlId = Math.floor(Math.random() * (numberOfControls));
+        if (controlIds.indexOf(controlId) === -1) {
+            controlIds.push(controlId);
+        }
+    }
+    return controlIds;
+}

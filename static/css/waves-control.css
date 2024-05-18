@@ -1,0 +1,26 @@
+
+
+.waves-container {
+  color: violet;
+  background: pink;
+  style: block;
+  width: 240px;
+  height: 180px;
+  text-align: center;
+  padding-top:60px;
+  user-select: none;
+  font-size:64px;
+}
+
+.shake-animation {
+  animation: shake 2s ease-in-out infinite;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(-20px); }
+  40% { transform: translateX(20px); }
+  60% { transform: translateX(-20px); }
+  80% { transform: translateX(20px); }
+  100% { transform: translateX(0); }
+}

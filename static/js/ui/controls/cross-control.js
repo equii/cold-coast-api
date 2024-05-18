@@ -1,6 +1,6 @@
-var CrossControl = (function () {
+let CrossControl = (function () {
 	return {
-		init: function (containerId, action) {
+		init: function (containerId, action, key) {
 			var container = document.getElementById(containerId);
 			if (!container) {
 				console.error('Container element not found');
@@ -14,7 +14,26 @@ var CrossControl = (function () {
         </div>
       `;
 
-			document.addEventListener('DOMContentLoaded', function () {
+			// document.addEventListener('DOMContentLoaded', function () {
+			// 	var cross = document.querySelector('.cross-control');
+			// 	cross.classList.add('spin-animation');
+
+			// 	cross.addEventListener('animationiteration', onAnimationIteration);
+
+			// 	function onAnimationIteration(event) {
+			// 		if (event.animationName === 'spin') {
+			// 			// Decrement the iteration count
+			// 			cross.dataset.iterations = (parseInt(cross.dataset.iterations) || 0) + 1;
+
+			// 			// If the animation has played 2 times, remove the animation class
+			// 			if (parseInt(cross.dataset.iterations) === 1) {
+			// 				cross.classList.remove('spin-animation');
+			// 			}
+			// 		}
+			// 	}
+			// });
+
+			function animate() {
 				var cross = document.querySelector('.cross-control');
 				cross.classList.add('spin-animation');
 
@@ -31,7 +50,9 @@ var CrossControl = (function () {
 						}
 					}
 				}
-			});
+			}
+
+			animate();
 
 			var cross = document.querySelector('.cross-control');
 			var startX, startY;
@@ -41,18 +62,32 @@ var CrossControl = (function () {
 			cross.addEventListener('touchmove', drag);
 
 			cross.addEventListener('touchmove', function(e) {
-				action();
+				var touch = e.touches[0];
+				var deltaX = touch.clientX - startX;
+				var deltaY = touch.clientY - startY;
+				var angle = Math.abs((Math.atan2(deltaY, deltaX) * 180) / Math.PI);
+				sendValue(angle);
 			});
+
 			let isMoving = false;
 			cross.addEventListener('mousedown', function (e) {
 				startX = e.clientX;
 				startY = e.clientY;
 				isMoving = true;
 			});
+			
 			cross.addEventListener('mouseup', function (e) {
+				var deltaX = e.clientX - startX;
+				var deltaY = e.clientY - startY;
+				var angle = Math.abs((Math.atan2(deltaY, deltaX) * 180) / Math.PI);
 				isMoving = false;
-				action();
+				sendValue(angle);
 			});
+
+			function sendValue(value) {
+				action({ key: key, value: value });
+			}
+			
 			cross.addEventListener('mousemove', function (e) {
 				if (!isMoving) {
 					return;
